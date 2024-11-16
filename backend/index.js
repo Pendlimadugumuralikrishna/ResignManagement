@@ -4,10 +4,10 @@ const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 const admin = require("./services/admin.service.js");
-const taskRoutes = require("./routes/tasks.routes");
+const resignRoutes = require("./routes/resignation.route.js");
 const authRoutes=require("./routes/auth.route");
 const app = express();
-const PORT = 8080;
+const PORT = 8082;
 const DB_URI = "mongodb://localhost:27017/task-manager";
 
 mongoose
@@ -20,7 +20,7 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
-app.use("/tasks", taskRoutes);
+app.use("/user", resignRoutes);
 app.use("/auth",authRoutes);
 
 app.listen(PORT, async () => {

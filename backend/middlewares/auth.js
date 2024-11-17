@@ -9,6 +9,7 @@ const authenticate = async (req, res, next) => {
 
     try{
         const decoded = jwt.verify(token,"business");
+        console.log(decoded);
         req.user = decoded;
         next();
 
@@ -21,7 +22,8 @@ const authenticate = async (req, res, next) => {
 
 const authorizeRole = (role) => {
     return (req,res,next)=> {
-        if(req.user.role !== role){
+        console.log(req.user);
+        if(req.user?.role !== role){
             return next(new Error("Access denied"))
         }
         next();

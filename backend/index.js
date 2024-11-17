@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const admin = require("./services/admin.service.js");
 const resignRoutes = require("./routes/resignation.route.js");
 const authRoutes=require("./routes/auth.route");
+const adminRoutes = require("./routes/admin.route.js")
 const app = express();
 const PORT = 8082;
 const DB_URI = "mongodb://localhost:27017/task-manager";
@@ -22,6 +23,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/user", resignRoutes);
 app.use("/auth",authRoutes);
+app.use("/admin",adminRoutes);
 
 app.listen(PORT, async () => {
   await admin();

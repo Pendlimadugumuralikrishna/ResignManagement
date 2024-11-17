@@ -32,4 +32,21 @@ const Resign = async(data)=>{
    
 }
 
-module.exports = {Resign};
+const getResignations =async(data)=>{
+    try{
+        const resigns = await Resignation.find({});
+         const d = await resigns.map(resign=>({
+            _id:resign._id,
+            employeeId:resignation.employeeId,
+            lwd:resign.lwd,
+            status:resign.status
+        }))
+        return d;
+
+
+    }catch(e){
+        throw new error(e);
+    }
+}
+
+module.exports = {Resign,getResignations};

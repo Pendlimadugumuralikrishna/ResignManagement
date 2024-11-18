@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema({
     role:{
         type:String,
         enum:["HR","Employee"],
-        required:true
+        // required:true
+        default:"Employee"
     }
    
 },

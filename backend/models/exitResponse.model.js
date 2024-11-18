@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const User = require("../models/user.model")
 const exitResponseSchema = new mongoose.Schema({
     employeeId:{
         type:mongoose.Schema.Types.ObjectId,

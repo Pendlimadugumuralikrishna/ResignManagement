@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-let secret="business"
 const generateToken = async(userId,type,expires,role)=>{
     let payload = {
         userId:userId,
@@ -9,12 +8,15 @@ const generateToken = async(userId,type,expires,role)=>{
         exp:expires,
         iat:Math.floor(Date.now()/1000)
     }
-    let token = jwt.sign(payload,secret);
+
+
+  console.log("Token Payload:", payload);
+    let token = jwt.sign(payload,"business");
     return token;
 }
 const generateAuthToken = async(user)=>{
     const accessTokenExpires = Math.floor(Date.now()/1000) + 60*60;
-    const token = await generateToken(user._id,"access",accessTokenExpires,user.role);
+    const token = await generateToken(user._id,"access",accessTokenExpires,"employee");
 
     return {
         access:{

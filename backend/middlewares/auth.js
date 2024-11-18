@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 const authenticate = async (req, res, next) => {
+    console.log("In the authentication module");
+
     const token = req.headers['authorization']?.replace("Bearer ", "");
 
     if(!token){
@@ -9,7 +11,7 @@ const authenticate = async (req, res, next) => {
 
     try{
         const decoded = jwt.verify(token,"business");
-        console.log(decoded);
+        console.log("the decodedvalue" + decoded.userId);
         req.user = decoded;
         next();
 
@@ -22,8 +24,8 @@ const authenticate = async (req, res, next) => {
 
 const authorizeRole = (role) => {
     return (req,res,next)=> {
-        console.log(req.user);
-        if(req.user?.role !== role){
+        console.log(req.user.role);
+        if(req.user.role !== role){
             return next(new Error("Access denied"))
         }
         next();

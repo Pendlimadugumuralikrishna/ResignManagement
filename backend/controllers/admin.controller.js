@@ -1,7 +1,7 @@
 const {conclude_resignation,getAllExitResponses} = require("../services/admin.service")
 const concludeResignation = async(req,res)=>{
     try{
-        const data = await concludeResignation(req.body);
+        const data = await conclude_resignation(req.body);
         res.status(200).json({ message: `Resignation ${data.approved ? "approved" : "rejected"} successfully.` })
 
     }catch(e){

@@ -4,23 +4,30 @@ const ExitModel = require("../models/exitResponse.model")
 const bcrypt = require("bcrypt");
 
 const initialiseAdminAccount = async () => {
+  console.log("InitialiseAdminAccount function invoked");
   try {
-    const existingHr = await User.findOne({ role: "HR" });
-    if (!existingHr) {
-        const hashedPassword = await bcrypt.hash("admin",10);
-        const user = new User({
-            role:"HR",
-            username:"admin",
-            password:hashedPassword
-        })
+      const existingHr = await User.findOne({ role: "HR" });
+      console.log("Existing HR:", existingHr);
 
-        await user.save();
-        console.log("admin created");
-    }
-  } catch {
-    console.log("error");
+      if (!existingHr) {
+          const hashedPassword = await bcrypt.hash("admin", 10);
+          console.log("Hashed Password:", hashedPassword);
+
+          const user = new User({
+              role: "HR",
+              username: "admin",
+              password: hashedPassword,
+          });
+          console.log("Admin User Object:", user);
+
+          const savedUser = await user.save();
+          console.log("Admin Account Created:", savedUser);
+      }
+  } catch (error) {
+      console.error("Error in initialiseAdminAccount:", error);
   }
 };
+``
 
 const conclude_resignation = async (data) => {
   try{
@@ -70,5 +77,5 @@ const getAllExitResponses = async (data) => {
   }
 }
 
-module.exports = initialiseAdminAccount;
-module.exports = {conclude_resignation,getAllExitResponses};
+
+module.exports = {conclude_resignation,getAllExitResponses,initialiseAdminAccount};

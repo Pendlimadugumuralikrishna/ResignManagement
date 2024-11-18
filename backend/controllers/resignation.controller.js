@@ -1,8 +1,10 @@
 
 const {Resign,getResignations}= require("../services/resignation.service.js");
 const submitResignation = async(req,res)=>{
+  const id = req.user.userId;
+  console.log("in the user resignation controller "+req.user.userId);
     try{
-        const data = await Resign(req.body);
+        const data = await Resign(req.body,id);
 
         res.status(200).json({
             data: {

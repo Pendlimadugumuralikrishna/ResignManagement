@@ -1,7 +1,7 @@
 const Resignation = require("../models/resignation.model");
 
-const Resign = async(data)=>{
-    const {lwd,reason} =data;
+const Resign = async(data,id)=>{
+    const {lwd} =data;
     try{
         if(!lwd){
             throw new Error('Last working day and reason are required');
@@ -16,9 +16,9 @@ const Resign = async(data)=>{
         }
 
         const resignation = new Resignation({
-            employeeId:req.user.userId,
+            employeeId:id,
             lwd:lastWorkingDay,
-            reason:reason,
+         
 
         });
 
@@ -32,12 +32,12 @@ const Resign = async(data)=>{
    
 }
 
-const getResignations =async(data)=>{
+const getResignations =async()=>{
     try{
         const resigns = await Resignation.find({});
-         const d = await resigns.map(resign=>({
+         const d =  resigns.map(resign=>({
             _id:resign._id,
-            employeeId:resignation.employeeId,
+            employeeId:resign.employeeId,
             lwd:resign.lwd,
             status:resign.status
         }))

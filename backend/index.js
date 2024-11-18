@@ -3,7 +3,7 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
-const admin = require("./services/admin.service.js");
+const {initialiseAdminAccount} = require("./services/admin.service.js");
 const resignRoutes = require("./routes/resignation.route.js");
 const authRoutes=require("./routes/auth.route");
 const adminRoutes = require("./routes/admin.route.js")
@@ -26,6 +26,10 @@ app.use("/auth",authRoutes);
 app.use("/admin",adminRoutes);
 
 app.listen(PORT, async () => {
-  await admin();
-  console.log(`Backend listening on Port ${PORT}!`);
+  try {
+    await initialiseAdminAccount();
+    console.log(`Backend listening on Port ${PORT}!`);
+} catch (error) {
+    console.error("Error initializing admin account:", error);
+}
 });

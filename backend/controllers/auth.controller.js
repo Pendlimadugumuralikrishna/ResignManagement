@@ -7,10 +7,10 @@ const register = async(req,res)=>{
     try{
         let user = await createUser(req.body);
         console.log("in register controller");
-        res.status(201).json(user);
+        res.status(201).json({message:"User Registered Successfully",user:user});
 
     }catch(e){
-        res.status(status.NOT_CREATED).json(e);
+        res.status(500).json(e);
     }
 }
 
@@ -19,7 +19,8 @@ const login = async(req,res)=>{
     const {username,password} = req.body;
     try{
         const user = await authService.loginWithUsernameAndPassword(username,password);
-        const tokens = await tokenService.generateAuthToken(req.body);
+        console.log("in login controller " + user);
+        const tokens = await tokenService.generateAuthToken(user);
         res.status(200).json({user,tokens});
 
     }catch(e){

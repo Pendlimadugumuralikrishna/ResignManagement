@@ -6,8 +6,14 @@ const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 const getUserByUsername = async(username)=>{
-   const user=  await User.findOne({username:username});
-   return user;
+  try {
+    const user = await User.findOne({ username });
+    console.log("getUserByUsername:", user);
+    return user;
+} catch (error) {
+    console.error("Error in getUserByUsername:", error);
+    throw error; 
+}
 }
 
 const createUser = async (data) => {

@@ -5,7 +5,7 @@ const express = require("express");
 const Router = express.Router();
 
 
-Router.post("/resign", authenticate, authorizeRole("Employee"), submitResignation);
+Router.post("/resign", authenticate, submitResignation);
 
-Router.post("/responses", authenticate, authorizeRole("Employee"),exitResponse);
+Router.post("/responses", authenticate,exitResponse);
 module.exports = Router;
